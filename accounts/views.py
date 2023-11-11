@@ -32,20 +32,21 @@ def signup(request):
 
 @api_view(['POST'])
 def login(request):
-    key, password, user = request.data['key'], request.data['password'], None
+    username, password = request.data['username'], request.data['password']
     
-    if validate_email(key):
-        user = User.objects.get(email=key)
-    else:
-        user = User.objects.get(username=key)
-        
-           
-    if user.check_password(password):
-        token, created = Token.objects.get_or_create(user=user)
-        
-        return Response({'token': token.key, 'user': UserSerializer(user, context={'request': request}).data})
     
-    return Response(status=404)
+    queryset = User.objects.filter(username=username)
+        
+    if queryset.exists():
+        user = queryset.first()
+        
+        if user.check_password(password):
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({'token': token.key, 'user': UserSerializer(user, context={'request': request}).data})
+        
+        else:
+            return Response({'error': 'Parol mos kelmadi'}, status=400)
+    return Response({'error' : 'Foydalanuvchi topilmadi'}, status=404)
 
 
 @api_view(['GET'])
@@ -65,3 +66,12 @@ def validate_email(email: str) -> bool:
         return True
     except ValidationError:
         return False
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+@authentication_classes([TokenAuthentication])
+def get_me(request):
+    serializer = UserSerializer(request.user, context={'request': request})
+    return Response(serializer.data)
+
+    

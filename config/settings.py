@@ -9,7 +9,7 @@ SECRET_KEY = 'django-insecure-p33hqo-_xs&n6ss5^$klc*_sg(t)a8ge$7ki@)@e=6_5&7%$$s
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 INSTALLED_APPS = [
@@ -24,6 +24,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     
     'accounts',
+    'api',
+    'project',
 ]
 
 MIDDLEWARE = [
