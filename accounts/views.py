@@ -72,6 +72,9 @@ def validate_email(email: str) -> bool:
 @authentication_classes([TokenAuthentication])
 def get_me(request):
     serializer = UserSerializer(request.user, context={'request': request})
-    return Response(serializer.data)
+    
+    data = serializer.data.copy()
+        
+    return Response(data)
 
     

@@ -7,3 +7,5 @@ class User(AbstractUser):
     avatar = models.ImageField(upload_to='avatars/')
     
 
+    def __int__(self) -> int:
+        return self.pk
