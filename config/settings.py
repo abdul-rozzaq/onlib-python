@@ -12,6 +12,7 @@ SECRET_KEY = 'django-insecure-p33hqo-_xs&n6ss5^$klc*_sg(t)a8ge$7ki@)@e=6_5&7%$$s
 DEBUG = env.bool('DEBUG', default=False)
 
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://server-bxmuhf.fibo.cloud/', 'http://127.0.0.1:8000']
 
 
 INSTALLED_APPS = [
