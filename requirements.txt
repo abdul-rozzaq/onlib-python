@@ -1,6 +1,6 @@
 asgiref==3.7.2
 attrs==23.1.0
-autobahn==23.6.2
+autobahn
 Automat==22.10.0
 cffi==1.16.0
 channels==4.0.0
